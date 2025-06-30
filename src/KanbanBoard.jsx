@@ -79,7 +79,7 @@ function KanbanBoard() {
         <h3>KANBAN BOARD</h3>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className='kanban-grid'>
+        <div className='kanban-grid' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
           {data.columnOrder.map(columnId => {
             const column = data.columns[columnId];
             const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
@@ -91,6 +91,7 @@ function KanbanBoard() {
                     className='kanban-column'
                     {...provided.droppableProps}
                     ref={provided.innerRef}
+                    style={{ backgroundColor: '#2c3e50', padding: '20px', borderRadius: '8px', minHeight: '300px', color: 'white' }}
                   >
                     <h4>{column.title}</h4>
                     {tasks.map((task, index) => (
@@ -101,6 +102,15 @@ function KanbanBoard() {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
+                            style={{
+                              padding: '10px',
+                              margin: '8px 0',
+                              backgroundColor: '#34495e',
+                              borderRadius: '4px',
+                              color: 'white',
+                              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                              ...provided.draggableProps.style
+                            }}
                           >
                             {task.content}
                           </div>
